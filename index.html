@@ -19,10 +19,13 @@
       keyboard_arrow_up
     </button>
     <div id="help">
-      <i class="material-icons">keyboard</i>
-      Press +/<i class="material-icons">keyboard_arrow_up</i> to
-      increment and -/<i class="material-icons">keyboard_arrow_down</i> to
-      decrement.
+      <div>
+        <input type="checkbox" name="allowNegative" id="allowNegative" data-action="toggle-negative">
+        <label for="allowNegative" role="button"> negative numbers</label>
+      </div>
+      <div class="keyboard">
+        Press [<strong>+</strong>]/[<strong>-</strong>] or [up]/[down]
+      </div>
     </div>
   </div>
 
