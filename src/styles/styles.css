@@ -1,0 +1,122 @@
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+body {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  min-height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  font-family: monospace;
+  font-size: 40vmin;
+  color: #444;
+  background: -webkit-gradient(linear, left top, left bottom, from(khaki), to(#f1ebba));
+  background: linear-gradient(180deg, khaki, #f1ebba);
+}
+
+.app {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.app [data-number] {
+  width: 100%;
+  text-align: center;
+  -webkit-box-ordinal-group: 2;
+      -ms-flex-order: 1;
+          order: 1;
+  -webkit-transition: linear;
+  transition: linear;
+}
+
+.app [data-number].transition {
+  opacity: 0;
+  -webkit-transform: scale(0.8);
+          transform: scale(0.8);
+}
+
+.app [data-number]::before {
+  content: attr(data-number);
+}
+
+.app [data-action] {
+  border: none;
+  border-radius: 50%;
+  font-size: 0.5em;
+  padding: 0;
+  margin: 0;
+  outline: none;
+  cursor: pointer;
+  margin: 0;
+  -webkit-transition: -webkit-transform 100ms;
+  transition: -webkit-transform 100ms;
+  transition: transform 100ms;
+  transition: transform 100ms, -webkit-transform 100ms;
+  background: none;
+  color: indianred;
+}
+
+.app [data-action]:active, .app [data-action].fake-active {
+  color: red;
+}
+
+.app [data-action="decrement"] {
+  -webkit-box-ordinal-group: 3;
+      -ms-flex-order: 2;
+          order: 2;
+}
+
+.app [data-action="decrement"]:active,
+.app [data-action="decrement"].fake-active {
+  -webkit-transform: translateY(5%);
+          transform: translateY(5%);
+}
+
+.app [data-action="increment"] {
+  -webkit-box-ordinal-group: 4;
+      -ms-flex-order: 3;
+          order: 3;
+}
+
+.app [data-action="increment"]:active,
+.app [data-action="increment"].fake-active {
+  -webkit-transform: translateY(-5%);
+          transform: translateY(-5%);
+}
+
+#help {
+  position: fixed;
+  bottom: 0;
+  margin: 0 auto;
+  font-size: 12pt;
+  padding: 2vmin;
+}
+
+@media only screen and (max-width: 768px) {
+  #help .keyboard {
+    display: none;
+  }
+}
+
+.material-icons {
+  font-size: inherit;
+}
+/*# sourceMappingURL=styles.css.map */

@@ -1,9 +1,13 @@
-const Counter = {
+export const Counter = {
     options: {
         display: {
             selector: "[data-number]",
-            transitionDuration: 100
-        }
+            transitionDuration: 0,
+            transitionTimingFunction: 'linear',
+            transitionClass: 'transition',
+        },
+        start: 0,
+        negativeNumbers: true,
     },
     // dom element
     display: null,
@@ -12,9 +16,17 @@ const Counter = {
         //update selector
         this.options.display.selector = options.selector ?? this.options.display.selector;
         //update transitionDuration
-        this.options.display.transitionDuration = options.transitionDuration ?? this.options.display.transitionDuration;
+        this.options.display.transitionDuration = Number(options.transitionDuration ?? this.options.display.transitionDuration);
+        //update transitionTimingFunction
+        this.options.display.transitionTimingFunction = options.transitionTimingFunction ?? this.options.display.transitionTimingFunction;
+        //update transitionClass
+        this.options.display.transitionClass = options.transitionClass ?? this.options.display.transitionClass;
+        //update starting number
+        this.options.display.start = Number(options.start ?? this.options.start);
+        //update negative numbers allow
+        this.options.negativeNumbers = (typeof options.negativeNumbers === 'boolean') ? options.negativeNumbers : this.options.negativeNumbers;
         //init display element
-        setDisplay();
+        this.setDisplay();
     },
     // gestore di eventi
     handleEvent(e) {
@@ -49,15 +61,21 @@ const Counter = {
                 console.log("Bad selector");
                 return;
             }
+            // starting number
+            this.display.dataset.number = this.options.start;
+            //set transition duration
             this.display.style.transitionDuration =
                 this.options.display.transitionDuration + "ms";
+            //set transition property
+            this.display.style.transitionTimingFunction =
+                this.options.display.transitionTimingFunction;
         }
         return this.display !== null;
     },
 
     mouseEvent(e) {
         // identifico il target
-        let target = e.target.closest("[data-action]") ? ? e.target,
+        let target = e.target.closest("[data-action]") ?? e.target,
             action = target.dataset.action;
 
         switch (action) {
@@ -103,8 +121,8 @@ const Counter = {
 
     transitionEffect() {
         return new Promise((resolve, reject) => {
-            this.display.classList.toggle("transition");
-            setTimeout(() => resolve(true), this.transition.duration);
+            this.display.classList.toggle(this.options.display.transitionClass);
+            setTimeout(() => resolve(true), this.options.display.transitionDuration);
         });
     },
 
@@ -116,11 +134,15 @@ const Counter = {
     },
 
     decrement() {
+        let current_number = this.display.dataset.number;
+        // if negative numbers are not allowed, exit.
+        if (current_number <= 0 && !this.options.negativeNumbers) {
+            this.display.dataset.number = 0;
+            return;
+        }
         this.transitionEffect().then((resolve) => {
             this.display.dataset.number--;
             this.display.classList.toggle("transition");
         });
     }
 };
-
-export default Counter;

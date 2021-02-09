@@ -1,32 +1,33 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Parcel Sandbox</title>
-    <meta charset="UTF-8" />
-    <link rel="stylesheet" href="src/styles.css" />
-    <link
-      href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet"
-    />
-  </head>
 
-  <body>
-    <div class="app">
-      <button data-action="decrement" class="material-icons">
-        keyboard_arrow_down
-      </button>
-      <div id="number" data-number="0"></div>
-      <button data-action="increment" class="material-icons">
-        keyboard_arrow_up
-      </button>
-      <div id="help">
-        <i class="material-icons">keyboard</i>
-        Press +/<i class="material-icons">keyboard_arrow_up</i> to
-        increment and -/<i class="material-icons">keyboard_arrow_down</i> to
-        decrement.
-      </div>
+<head>
+  <title>Counter.js</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, user-scalable=no" />
+  <link rel="stylesheet" href="src/styles/styles.css" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+</head>
+
+<body>
+  <div class="app">
+    <button data-action="decrement" class="material-icons">
+      keyboard_arrow_down
+    </button>
+    <div id="number" data-number="0"></div>
+    <button data-action="increment" class="material-icons">
+      keyboard_arrow_up
+    </button>
+    <div id="help">
+      <i class="material-icons">keyboard</i>
+      Press +/<i class="material-icons">keyboard_arrow_up</i> to
+      increment and -/<i class="material-icons">keyboard_arrow_down</i> to
+      decrement.
     </div>
+  </div>
 
-    <script type="text/javascript" src="src/index.js"></script>
-  </body>
+  <!--<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>-->
+  <script src="src/index.js" type="module"></script>
+</body>
+
 </html>
