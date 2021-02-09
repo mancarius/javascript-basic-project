@@ -4,6 +4,8 @@
 }
 
 body {
+  margin: 0;
+  padding: 0;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -35,6 +37,10 @@ body {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
 }
 
 .app [data-number] {
@@ -108,9 +114,63 @@ body {
   margin: 0 auto;
   font-size: 12pt;
   padding: 2vmin;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+#help [type="checkbox"] {
+  display: none;
+}
+
+#help [type="checkbox"] + label {
+  cursor: pointer;
+  padding: .5em;
+  border-color: #444;
+  border-style: solid;
+  border-radius: 5px;
+  border-width: 1px;
+  background-color: #aaaaaa33;
+  display: block;
+  text-align: center;
+}
+
+#help [type="checkbox"] + label:hover {
+  background-color: #b9ce9793;
+}
+
+#help [type="checkbox"] + label:active {
+  font-weight: bold;
+}
+
+#help [type="checkbox"] + label::before {
+  content: 'Deny';
+}
+
+#help [type="checkbox"] + label::after {
+  content: ' [spacebar]';
+}
+
+#help [type="checkbox"]:checked + label {
+  background-color: #8bb647;
+  color: #fff;
+}
+
+#help [type="checkbox"]:checked + label::before {
+  content: 'Allow';
+}
+
+#help .keyboard {
+  margin-left: 1em;
 }
 
 @media only screen and (max-width: 768px) {
+  #help [type="checkbox"] + label::after {
+    content: '';
+  }
   #help .keyboard {
     display: none;
   }
