@@ -1,8 +1,11 @@
-const number = {
-  viewer: null,
-  transition: {
-    duration: 100
+const Counter = {
+  options: {
+    viewer: {
+      selector: "[data-number]",
+      transitionDuration: 100
+    }
   },
+  viewer: null,
   // gestore di eventi
   handleEvent(e) {
     // se non ho l'elemento in cui stampare il risultato non procedo
@@ -29,8 +32,15 @@ const number = {
 
   setViewer() {
     if (this.viewer === null) {
-      this.viewer = document.querySelector("[data-number]");
-      this.viewer.style.transitionDuration = this.transition.duration + "ms";
+      let selector = this.options.viewer.selector;
+      try {
+        this.viewer = document.querySelector(selector);
+      } catch (err) {
+        console.log("Bad selector");
+        return;
+      }
+      this.viewer.style.transitionDuration =
+        this.options.viewer.transitionDuration + "ms";
     }
     return this.viewer !== null;
   },
@@ -102,7 +112,3 @@ const number = {
     });
   }
 };
-
-document.querySelector(".app").addEventListener("click", number);
-
-document.addEventListener("keydown", number);
