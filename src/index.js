@@ -1,14 +1,16 @@
 'use strict';
 
-import { Counter } from './modules/Counter.js';
+import {
+  Counter
+} from './modules/Counter.js';
 
 Counter.init({
-  selector: '[data-number]',
   transitionDuration: 100,
   transitionClass: 'transition',
   transitionTimingFunction: 'linear',
   start: 0,
-  allowNegativeNumbers: false
+  allowNegativeNumbers: false,
+  fakeActiveClass: 'fake-class'
 });
 
 document.querySelector(".app").addEventListener("click", Counter);

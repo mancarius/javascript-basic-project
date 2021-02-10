@@ -25,25 +25,14 @@ body {
   justify-content: center;
   user-select: none;
 
-  & [data-number] {
+  #counter {
     width: 100%;
     text-align: center;
     order: 1;
     transition: linear;
-  
-
-    &.transition {
-      opacity: 0;
-      transform: scale(.8);
-    }
-
-    &::before {
-      content: attr(data-number);
-    }
-
   }
 
-  & [data-action] {
+  [data-action] {
     border: none;
     border-radius: 50%;
     font-size: 0.5em;
@@ -64,21 +53,21 @@ body {
 
   }
 
-  & [data-action="decrement"] {
+  [data-action="decrement"] {
     order: 2;
   }
 
-  & [data-action="decrement"]:active,
-  & [data-action="decrement"].fake-active {
+  [data-action="decrement"]:active,
+  [data-action="decrement"].fake-active {
     transform: translateY(+5%);
   }
 
-  & [data-action="increment"] {
+  [data-action="increment"] {
     order: 3;
   }
 
-  & [data-action="increment"]:active,
-  & [data-action="increment"].fake-active {
+  [data-action="increment"]:active,
+  [data-action="increment"].fake-active {
     transform: translateY(-5%);
   }
 
@@ -157,4 +146,20 @@ body {
 
 .material-icons {
   font-size: inherit;
+}
+
+////////////////////////////////////
+////////////////////////////////////
+// Stili necessari per il corretto funzionamento del contatore
+[data-counter] {
+
+  &.transition {
+    opacity: 0;
+    transform: scale(.8);
+  }
+
+  &::before {
+    content: attr(data-counter);
+  }
+
 }

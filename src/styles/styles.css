@@ -43,7 +43,7 @@ body {
           user-select: none;
 }
 
-.app [data-number] {
+.app #counter {
   width: 100%;
   text-align: center;
   -webkit-box-ordinal-group: 2;
@@ -51,16 +51,6 @@ body {
           order: 1;
   -webkit-transition: linear;
   transition: linear;
-}
-
-.app [data-number].transition {
-  opacity: 0;
-  -webkit-transform: scale(0.8);
-          transform: scale(0.8);
-}
-
-.app [data-number]::before {
-  content: attr(data-number);
 }
 
 .app [data-action] {
@@ -178,5 +168,15 @@ body {
 
 .material-icons {
   font-size: inherit;
+}
+
+[data-counter].transition {
+  opacity: 0;
+  -webkit-transform: scale(0.8);
+          transform: scale(0.8);
+}
+
+[data-counter]::before {
+  content: attr(data-counter);
 }
 /*# sourceMappingURL=styles.css.map */
