@@ -1,6 +1,6 @@
-import {
-  Counter
-} from './modules/Counter.js'
+'use strict';
+
+import { Counter } from './modules/Counter.js';
 
 Counter.init({
   selector: '[data-number]',
@@ -9,7 +9,7 @@ Counter.init({
   transitionTimingFunction: 'linear',
   start: 0,
   allowNegativeNumbers: false
-})
+});
 
 document.querySelector(".app").addEventListener("click", Counter);
 

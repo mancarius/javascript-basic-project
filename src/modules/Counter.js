@@ -1,11 +1,17 @@
 export const Counter = {
     options: {
-        display: {
+        default: {
             selector: "[data-number]",
             transitionDuration: 0,
             transitionTimingFunction: 'linear',
             transitionClass: 'transition',
+            start: 0,
+            allowNegativeNumbers: true,
         },
+        selector: "[data-number]",
+        transitionDuration: 0,
+        transitionTimingFunction: 'linear',
+        transitionClass: 'transition',
         start: 0,
         allowNegativeNumbers: true,
     },
@@ -13,24 +19,30 @@ export const Counter = {
     display: null,
     // timeout per l'evento wheel
     wheelTimeout:null,
-    //initializer
+    ///////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////
+    // inizializza l'oggetto
     init(options) {
         //update selector
-        this.options.display.selector = options.selector ?? this.options.display.selector;
+        this.options.selector = options.selector ?? this.options.default.selector;
         //update transitionDuration
-        this.options.display.transitionDuration = Number(options.transitionDuration ?? this.options.display.transitionDuration);
+        this.options.transitionDuration = Number(options.transitionDuration ?? this.options.default.transitionDuration);
         //update transitionTimingFunction
-        this.options.display.transitionTimingFunction = options.transitionTimingFunction ?? this.options.display.transitionTimingFunction;
+        this.options.transitionTimingFunction = options.transitionTimingFunction ?? this.options.default.transitionTimingFunction;
         //update transitionClass
-        this.options.display.transitionClass = options.transitionClass ?? this.options.display.transitionClass;
+        this.options.transitionClass = options.transitionClass ?? this.options.default.transitionClass;
         //update starting number
-        this.options.display.start = Number(options.start ?? this.options.start);
+        this.options.start = Number(options.start ?? this.options.default.start);
         //update negative numbers allow
-        this.options.allowNegativeNumbers = (typeof options.allowNegativeNumbers === 'boolean') ? options.allowNegativeNumbers : this.options.allowNegativeNumbers;
+        this.options.allowNegativeNumbers = (typeof options.allowNegativeNumbers === 'boolean') ? options.allowNegativeNumbers : this.options.default.allowNegativeNumbers;
         //init display element
         this.setDisplay();
     },
-    // gestore di eventi
+    ///////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////
+    // gestore principale degli eventi
     handleEvent(e) {
         // se non ho l'elemento in cui stampare il numero non procedo
         if (this.display === null) {
@@ -68,7 +80,7 @@ export const Counter = {
     // inizializza l'elemento del dom che visualizza il contatore
     setDisplay() {
         if (this.display === null) {
-            let selector = this.options.display.selector;
+            let selector = this.options.selector;
             try {
                 this.display = document.querySelector(selector);
             } catch (err) {
@@ -79,17 +91,17 @@ export const Counter = {
             this.display.dataset.number = this.options.start;
             //set transition duration
             this.display.style.transitionDuration =
-                this.options.display.transitionDuration + "ms";
+                this.options.transitionDuration + "ms";
             //set transition property
             this.display.style.transitionTimingFunction =
-                this.options.display.transitionTimingFunction;
+                this.options.transitionTimingFunction;
         }
         return this.display !== null;
     },
     ///////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////
-    // this function handle the click actions
+    // gestore clicks
     clickAction(e) {
         // findeing the target with data-action
         let target = e.target.closest("[data-action]") ?? e.target,
@@ -110,7 +122,7 @@ export const Counter = {
     ///////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////
-    // this function handle the keyboard actions
+    // gestore aioni tastiera
     keyboardAction(e) {
         let action = e.key || e.keyCode;
 
@@ -150,7 +162,7 @@ export const Counter = {
     ///////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////
-    // this function handle the mouse wheel actions
+    // gestore mouse wheel
     wheelAction(e) {
         e.preventDefault();
         let action = e.deltaY < 10 ? 'increment' : e.deltaY > 10 ? 'decrement' : null;
@@ -172,7 +184,7 @@ export const Counter = {
     ///////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////
-    // this function handle the keyboard events
+    // gestore modifica opzioni
     optionsChange(e) {
         let target = e.target,
             action = target.dataset.action,
@@ -190,27 +202,39 @@ export const Counter = {
                 return;
         }
     },
-
+    ///////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////
+    // simula stato :active sui bottoni
     fakeActive(action) {
         let btn = document.querySelector('[data-action="' + action + '"]');
         btn.classList.toggle("fake-active");
         setTimeout(() => btn.classList.toggle("fake-active"), 100);
     },
-
+    ///////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////
+    // gestore effetto transizione numeri
     transitionEffect() {
         return new Promise((resolve, reject) => {
-            this.display.classList.toggle(this.options.display.transitionClass);
-            setTimeout(() => resolve(true), this.options.display.transitionDuration);
+            this.display.classList.toggle(this.options.transitionClass);
+            setTimeout(() => resolve(true), this.options.transitionDuration);
         });
     },
-
+    ///////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////
+    // incrementa contatore
     increment() {
         this.transitionEffect().then((resolve) => {
             this.display.dataset.number++;
-            this.display.classList.toggle("transition");
+            this.display.classList.toggle(this.options.transitionClass);
         });
     },
-
+    ///////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////
+    // decrementa contatore
     decrement() {
         let current_number = this.display.dataset.number;
         // if negative numbers are not allowed, exit.
@@ -220,7 +244,7 @@ export const Counter = {
         }
         this.transitionEffect().then((resolve) => {
             this.display.dataset.number--;
-            this.display.classList.toggle("transition");
+            this.display.classList.toggle(this.options.transitionClass);
         });
     }
 };
